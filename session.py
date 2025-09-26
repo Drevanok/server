@@ -1,4 +1,3 @@
-# session.py
 from auth import register_user, authenticate
 
 def handle_session(command, tokens, addr, current_user, active_sessions):
