@@ -11,7 +11,8 @@ def handle_session(command, tokens, addr, current_user, active_sessions):
             else:
                 u, p = tokens[1], tokens[2]
                 if register_user(u, p):
-                    response = f"Usuario '{u}' registrado correctamente. Ahora haz login."
+                    response = f"Registro exitoso. Usuario '{u}' creado. Ahora haz login."
+                    username = u  
                 else:
                     response = f"Error: el usuario '{u}' ya existe."
 
@@ -21,7 +22,6 @@ def handle_session(command, tokens, addr, current_user, active_sessions):
             else:
                 u, p = tokens[1], tokens[2]
                 if authenticate(u, p):
-            
                     if len(active_sessions) >= 5:
                         response = "Servidor lleno. Intenta más tarde."
                     else:

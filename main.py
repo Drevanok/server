@@ -4,7 +4,7 @@ from commands import handle_ls, handle_get, show_help
 from session import handle_session
 from database import init_db
 
-HOST = "127.0.0.1"
+HOST = "192.168.0.113"  
 PORT = 65432
 
 MAX_SESSIONS = 5               
@@ -20,21 +20,22 @@ def handle_client(conn, addr):
     global active_connections
     username = None
 
-    # Show commands on new connection
+    
+    print(f"Conexión entrante: {addr} (usuario aún no identificado)")
+
+   
     conn.sendall(show_help().encode("utf-8"))
 
-    # request count per client
     requests_counter[addr] = 0
 
     while True:
         try:
             data = conn.recv(1024)
         except ConnectionResetError:
-            break 
+            break
         if not data:
             break
 
-        # Securely decode message
         try:
             msg = data.decode("utf-8").strip()
         except UnicodeDecodeError:
@@ -42,25 +43,29 @@ def handle_client(conn, addr):
             continue
 
         if msg == "":
-            continue  # Ignore empty messages
-        
+            continue
+
         tokens = msg.split(" ")
         command = tokens[0].lower()
 
-        # Close connection on exit command
+        
         if command == "exit":
             conn.sendall("Conexión cerrada.".encode("utf-8"))
             break
 
-        # Limit requests per client
+       
         requests_counter[addr] += 1
         if requests_counter[addr] > MAX_REQUESTS_PER_CLIENT:
             conn.sendall("Has alcanzado el límite de peticiones. Conexión cerrada.".encode("utf-8"))
             break
 
-    
-        # Manage session (register/login/logout)
-        response, username = handle_session(command, tokens, addr, username, active_sessions)
+       
+        response, new_username = handle_session(command, tokens, addr, username, active_sessions)
+
+        
+        if new_username and new_username != username:
+            username = new_username
+            print(f"Usuario '{username}' conectado: {addr}")
 
         if response == "":
             if username is None:
@@ -75,6 +80,7 @@ def handle_client(conn, addr):
                         response = "Sesión cerrada."
                         if addr in active_sessions:
                             active_sessions.pop(addr)
+                        print(f"Usuario '{username}' desconectado (logout): {addr}")
                         username = None
                     case "help":
                         response = show_help()
@@ -83,7 +89,7 @@ def handle_client(conn, addr):
 
         conn.sendall(response.encode("utf-8"))
 
-    # Cleanup to close connection
+    
     with lock:
         active_connections -= 1
     if addr in active_sessions:
@@ -91,7 +97,10 @@ def handle_client(conn, addr):
     if addr in requests_counter:
         requests_counter.pop(addr)
     conn.close()
-    print(f"Desconectado: {addr}")
+    if username:
+        print(f"Usuario '{username}' desconectado: {addr}")
+    else:
+        print(f"Desconectado: {addr}")
 
 def main():
     global active_connections
