@@ -1,0 +1,27 @@
+2025-09-30 19:09:11,047 [INFO] Servidor iniciado en 127.0.0.1:65432
+2025-09-30 19:09:15,104 [INFO] Cliente conectado: ('127.0.0.1', 52090)
+2025-09-30 19:09:57,740 [INFO] Cliente desconectado: ('127.0.0.1', 52090)
+2025-09-30 19:10:01,099 [INFO] Cliente conectado: ('127.0.0.1', 60624)
+2025-09-30 19:10:42,417 [INFO] Cliente desconectado: ('127.0.0.1', 60624)
+2025-09-30 19:15:08,720 [INFO] Servidor escuchando en 127.0.0.1:65432
+2025-09-30 19:16:24,361 [INFO] Servidor escuchando en 127.0.0.1:65432
+2025-09-30 19:16:45,460 [INFO] Conexión entrante: ('127.0.0.1', 34358) (usuario aún no identificado)
+2025-09-30 19:18:01,133 [INFO] Usuario 'saul' inició sesión desde ('127.0.0.1', 34358)
+2025-09-30 19:18:01,133 [INFO] Usuario 'saul' conectado: ('127.0.0.1', 34358)
+2025-09-30 19:23:53,039 [INFO] Servidor escuchando en 127.0.0.1:65432
+2025-09-30 19:23:59,725 [INFO] Conexión entrante: ('127.0.0.1', 47128) (usuario aún no identificado)
+2025-09-30 19:24:04,881 [INFO] Usuario 'saul' inició sesión desde ('127.0.0.1', 47128)
+2025-09-30 19:24:04,882 [INFO] Usuario 'saul' conectado: ('127.0.0.1', 47128)
+2025-09-30 19:24:28,223 [INFO] Usuario 'saul' desconectado: ('127.0.0.1', 47128)
+2025-09-30 19:43:21,900 [INFO] Servidor escuchando en 127.0.0.1:65432
+2025-09-30 19:43:28,669 [INFO] Conexión entrante: ('127.0.0.1', 47484) (usuario aún no identificado)
+2025-09-30 19:43:36,254 [INFO] Usuario 'saul' inició sesión desde ('127.0.0.1', 47484)
+2025-09-30 19:43:36,254 [INFO] Usuario 'saul' conectado: ('127.0.0.1', 47484)
+2025-09-30 19:43:45,635 [INFO] Usuario 'saul' desconectado: ('127.0.0.1', 47484)
+2025-09-30 19:43:47,037 [INFO] Conexión entrante: ('127.0.0.1', 52410) (usuario aún no identificado)
+2025-09-30 19:43:56,767 [INFO] Usuario 'eliseo' conectado: ('127.0.0.1', 52410)
+2025-09-30 19:48:21,406 [INFO] Servidor escuchando en 127.0.0.1:65432
+2025-09-30 19:48:24,754 [INFO] Conexión entrante: ('127.0.0.1', 40604) (usuario aún no identificado)
+2025-09-30 19:48:43,688 [INFO] Usuario 'aparicio' inició sesión desde ('127.0.0.1', 40604)
+2025-09-30 19:48:43,688 [INFO] Usuario 'aparicio' conectado: ('127.0.0.1', 40604)
+2025-09-30 19:49:02,577 [INFO] Usuario 'aparicio' desconectado: ('127.0.0.1', 40604)

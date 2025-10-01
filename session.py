@@ -1,6 +1,22 @@
+import logging
 from auth import register_user, authenticate
 
-def handle_session(command, tokens, addr, current_user, active_sessions):
+# Configuración logging
+logging.basicConfig(
+    filename="server.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+)
+
+def log(message: str):
+    """Loggea en consola y archivo"""
+    print(message, flush=True)
+    logging.info(message)
+
+def handle_session(command, tokens, addr, current_user):
+    """
+    Maneja comandos de sesión: register y login
+    """
     response = ""
     username = current_user
 
@@ -12,7 +28,6 @@ def handle_session(command, tokens, addr, current_user, active_sessions):
                 u, p = tokens[1], tokens[2]
                 if register_user(u, p):
                     response = f"Registro exitoso. Usuario '{u}' creado. Ahora haz login."
-                    username = u  
                 else:
                     response = f"Error: el usuario '{u}' ya existe."
 
@@ -22,23 +37,13 @@ def handle_session(command, tokens, addr, current_user, active_sessions):
             else:
                 u, p = tokens[1], tokens[2]
                 if authenticate(u, p):
-                    if len(active_sessions) >= 5:
-                        response = "Servidor lleno. Intenta más tarde."
-                    else:
-                        username = u
-                        active_sessions[addr] = u
-                        response = f"Login exitoso. Bienvenido {u}"
+                    username = u
+                    log(f"Usuario '{u}' inició sesión desde {addr}")
+                    response = f"Login exitoso. Bienvenido {u}"
                 else:
                     response = "Login fallido: credenciales inválidas"
 
         else:
             response = "Debes registrarte o iniciar sesión primero."
-
-    else:
-        if command == "logout":
-            response = "Sesión cerrada."
-            if addr in active_sessions:
-                active_sessions.pop(addr)
-            username = None
 
     return response, username
